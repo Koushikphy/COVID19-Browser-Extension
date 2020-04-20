@@ -12,7 +12,7 @@ This extension uses real time statistics from worldmeters (API: https://covid19-
 
 ## Installation
 ### Chrome
-The extension is not available is chrome webstore (Sorry didn't wanted to pay $5). So, you have to use this in developer mode. Download this repo then,   
+The extension is not available is chrome webstore (Sorry didn't want to pay $5). So, you have to use this in developer mode. Download this repo then,   
 Go to `chrome://extensions` > Enable developer mode > 
 Load unpack extension > load this repo folder.  
 
