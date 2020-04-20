@@ -6,13 +6,13 @@ function filterWorldData(input){ // world api data is not sorted and also contai
     input.forEach(i=>{
         if(i.Country=='World'){ // WTF?
             total={
-                confirmed: parseVal(i.TotalCases),
-                active: parseVal(i.ActiveCases),
-                recovered: parseVal(i.TotalRecovered),
-                deaths : parseVal(i.TotalDeaths),
-                deltaconfirmed: parseVal(i.NewCases)==0? '': `(+${parseVal(i.NewCases)})`,
+                confirmed: parseVal(i.TotalCases).toLocaleString(),
+                active: parseVal(i.ActiveCases).toLocaleString(),
+                recovered: parseVal(i.TotalRecovered).toLocaleString(),
+                deaths : parseVal(i.TotalDeaths).toLocaleString(),
+                deltaconfirmed: parseVal(i.NewCases)==0? '': `(+${parseVal(i.NewCases).toLocaleString()})`,
                 deltarecovered: '',
-                deltadeaths: parseVal(i.NewDeaths)==0? '': `(+${parseVal(i.NewDeaths)})`
+                deltadeaths: parseVal(i.NewDeaths)==0? '': `(+${parseVal(i.NewDeaths).toLocaleString()})`
             }
         }else if(i.Country=='Total:') { // from the last line, just ignore
             return
@@ -45,13 +45,13 @@ function filterIndiaData(input){
     var  total, labels = [], confirmed = [], active=[], deaths=[],recovered=[];
     let ttl = input[0]
     total={
-        confirmed: parseVal(ttl.confirmed),
-        active: parseVal(ttl.active),
-        recovered: parseVal(ttl.recovered),
-        deaths : parseVal(ttl.deaths),
-        deltaconfirmed: parseVal(ttl.deltaconfirmed)==0? '': `(+${parseVal(ttl.deltaconfirmed)})`,
-        deltarecovered: parseVal(ttl.deltarecovered)==0? '': `(+${parseVal(ttl.deltarecovered)})`,
-        deltadeaths: parseVal(ttl.deltadeaths)==0? '': `(+${parseVal(ttl.deltadeaths)})`
+        confirmed: parseVal(ttl.confirmed).toLocaleString(),
+        active: parseVal(ttl.active).toLocaleString(),
+        recovered: parseVal(ttl.recovered).toLocaleString(),
+        deaths : parseVal(ttl.deaths).toLocaleString(),
+        deltaconfirmed: parseVal(ttl.deltaconfirmed)==0? '': `(+${parseVal(ttl.deltaconfirmed).toLocaleString()})`,
+        deltarecovered: parseVal(ttl.deltarecovered)==0? '': `(+${parseVal(ttl.deltarecovered).toLocaleString()})`,
+        deltadeaths: parseVal(ttl.deltadeaths)==0? '': `(+${parseVal(ttl.deltadeaths).toLocaleString()})`
     }
 
     input.forEach(elem=>{
@@ -77,7 +77,7 @@ function updateData(){
             // localStorage.setItem('india',JSON.stringify(data))
             chrome.storage.local.set({'india':data})
             chrome.browserAction.setBadgeText({
-                text: `${(data.total.confirmed)}`
+                text: `${(parseVal(data.total.confirmed))}`
             })
             chrome.browserAction.setBadgeBackgroundColor({ color: '#FF0000' })
         })
@@ -95,3 +95,5 @@ function updateData(){
 
 updateData()
 setInterval(updateData, 1000*60*10)// update data every 10 minutes
+
+
