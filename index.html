@@ -4,149 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-
-
-        ::-webkit-scrollbar-track
-        {
-            border-radius: 10px;
-            background-color: #F5F5F5;
-        }
-
-        ::-webkit-scrollbar
-        {
-            width: 7px;
-            background-color: #F5F5F5;
-        }
-
-        ::-webkit-scrollbar-thumb
-        {
-            border-radius: 10px;
-            background-color: #555;
-        }
-
-        th {
-            border: 1px solid black;
-            overflow: hidden;
-        }
-        th,td{
-            width: 20%;
-        }
-        tr:hover{
-            font-weight: bold;
-            background-color: #e4e4e4;
-            cursor: pointer;
-        }
-        table{
-            margin-top: 15px;
-            width: 100%;
-            text-align: center;
-            font-size: 19px;
-            table-layout: fixed;
-            width: 500px;
-            height: 500px;
-        }
-        table td:first-child {
-            text-align: left;
-        }​
-        tr:nth-child(odd) {
-            background-color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f1f1f1;
-        }
-        #graphContainer >div{
-            width: 32%;
-            display: inline-block;
-            text-align: center;
-        }
-
-
-        .pieChart{
-            height: 170px;
-        }
-
-        #confirm{
-            color: black;
-        }
-        #recover{
-            color: green;
-        }
-
-        #deaths{
-            color: red;
-        }
-        .statt{
-            font-size: 20px;
-        }
-        .stats{
-            font-size: 15px;
-        }
-        .statd{
-            font-size: 13px;
-        }
-
-        #wibutton{
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        #wibutton button{
-            height: 1.5pc;
-            width: fit-content;
-            font-size: 21px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            border-bottom: 2px solid black;
-            margin: 10px;
-        }
-        button:hover, button:active, button:focus{
-            border: none;
-            outline: none;
-        }
-
-
-
-
-    </style>
+    <link rel="stylesheet" href="./scripts/style.css">
 </head>
 <body>
-    <div id="wibutton">
-        <button id='wbtn'>World</button>
-        <button id='ibtn'>India</button>
+    <div id="country">
+        <div id="ibtn" class="counClick">India</div><div id="wbtn">World</div>
     </div>
-    <div id="graphContainer">
-        <div id="confirm">
+    <div id="condition">
+        <div id="confirm" class="condClick">
             <div class='statt'>Confirmed</div>
             <label class='stats' id="stat1"></label>
             <label class='stattd' id="deltastat1"></label>
-            <div class='pieChart' id="graph1"></div>
-        </div>
-
-        <div id="recover">
-            <div class='statt'>Recovered</div>
+        </div><div id="active">
+            <div class='statt'>Active</div>
             <label class='stats' id="stat2"></label>
-            <label class='statd' id="deltastat2"></label>
-            <div class='pieChart' id="graph2"></div>
-        </div>
-
-        <div id="deaths">
-            <div class='statt'>Deaths</div>
+            <label class='stattd' id="deltastat2"></label>
+        </div><div id="recover">
+            <div class='statt'>Recovered</div>
             <label class='stats' id="stat3"></label>
             <label class='statd' id="deltastat3"></label>
-            <div class='pieChart' id="graph3"></div>
+        </div><div id="deaths">
+            <div class='statt'>Deaths</div>
+            <label class='stats' id="stat4"></label>
+            <label class='statd' id="deltastat4"></label>
         </div>
     </div>
+
+    <div id="graph"></div>
     <table id="dataTable"></table>
 
-
-
-    <script src="plotly-latest.min.js"></script>
-    <!-- <script src="./axios.min.js"></script> -->
-    <!-- <script src="./getData.js"></script> -->
-
-    <!-- <script src="data.js"></script> -->
-    <!-- <script src="./AllReports.js"></script> -->
-    <script defer src='./script.js' ></script>
+    <!-- <script src="./axios.min.js"></script>
+    <script src="./getData.js"></script> -->
+    <script src="./scripts/plotly-latest.min.js"></script>
+    <script src="./scripts/script.js"></script>
 </body>
 </html>
