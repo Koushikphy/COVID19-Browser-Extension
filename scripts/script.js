@@ -9,7 +9,7 @@ const table = document.getElementById('dataTable')
 
 var currentCountry='india', currntCond='confirmed', stat;
 
-
+// these event listeners looks ugly af
 world.onclick = ()=>{
     india.classList.remove('counClick')
     world.classList.add('counClick')
@@ -78,9 +78,9 @@ function updateUI(){
     document.getElementById('stat4').innerText = `${stat[currentCountry].total.deaths}`
 
     // no delta in active cases
-    if(stat[currentCountry].total.deltaconfirmed) document.getElementById('deltastat1').innerText = `(+${stat[currentCountry].total.deltaconfirmed})`
-    if(stat[currentCountry].total.deltarecovered) document.getElementById('deltastat3').innerText = `(+${stat[currentCountry].total.deltarecovered})`
-    if(stat[currentCountry].total.deltadeaths) document.getElementById('deltastat4').innerText = `(+${stat[currentCountry].total.deltadeaths})`
+    document.getElementById('deltastat1').innerText =stat[currentCountry].total.deltaconfirmed
+    document.getElementById('deltastat3').innerText = stat[currentCountry].total.deltarecovered
+    document.getElementById('deltastat4').innerText = stat[currentCountry].total.deltadeaths 
 
     //update table
     var tableStr = `<tr>
@@ -90,7 +90,7 @@ function updateUI(){
         <th>Deaths</th>
         <th>Recovered</th>
     </tr>`
-
+    // pretty stupid way to make a table
     for(let i=0; i<stat[currentCountry].labels.length; i++){
         tableStr +=`
         <tr>
@@ -132,24 +132,20 @@ function initialUIUpdate(){
         updateUI()
 }
 
-// for testing locally
+// for testing locally, comment the chrome API calls and use local storage method
 // stat = {
 //     'world' : JSON.parse(localStorage.getItem('world')),
 //     'india' : JSON.parse(localStorage.getItem('india')),
 // }
 // initialUIUpdate()
 
-
-chrome.storage.local.get(['world','india'],(response=>{
-    stat = response;
-    console.log(stat)
-    initialUIUpdate()
-}))
-
-chrome.storage.onChanged.addListener(()=>{
+function refreshData(){
     chrome.storage.local.get(['world','india'],(response=>{
         stat = response;
         console.log(stat)
         initialUIUpdate()
     }))
-})
+}
+
+refreshData()
+chrome.storage.onChanged.addListener(refreshData)

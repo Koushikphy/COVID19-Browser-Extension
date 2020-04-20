@@ -71,11 +71,12 @@ tr:nth-child(even) {
 #condition>div{
     cursor: pointer;
     display: inline-block;
-    width: 21%;
+    min-width: 21%;
     /* background-color: rgb(132, 132, 151); */
     vertical-align: top;
     border: 1px solid black;
     height: fit-content;
+    width: fit-content;
     padding: 3px;
 }
 
@@ -132,7 +133,7 @@ tr:nth-child(even) {
     cursor: pointer;
     display: inline-block;
     border: 1px solid black;
-    background-color: #e9f2f9;
+    background-color: #ffffff;
     width: 19%;
     padding: 5px;
 }

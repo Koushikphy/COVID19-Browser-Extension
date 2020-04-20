@@ -10,13 +10,13 @@ function filterWorldData(input){ // world api data is not sorted and also contai
                 active: parseVal(i.ActiveCases),
                 recovered: parseVal(i.TotalRecovered),
                 deaths : parseVal(i.TotalDeaths),
-                deltaconfirmed: parseVal(i.NewCases),
-                deltarecovered: parseVal(i.NewDeaths),
-                deltadeaths: 0
+                deltaconfirmed: parseVal(i.NewCases)==0? '': `(+${parseVal(i.NewCases)})`,
+                deltarecovered: '',
+                deltadeaths: parseVal(i.NewDeaths)==0? '': `(+${parseVal(i.NewDeaths)})`
             }
         }else if(i.Country=='Total:') { // from the last line, just ignore
             return
-        } else{
+        } else { // TODO: Bad loop structure to sort out the data
             data.push({
                 country: i.Country, 
                 confirmed: parseVal(i.TotalCases),
@@ -43,7 +43,17 @@ function filterWorldData(input){ // world api data is not sorted and also contai
 
 function filterIndiaData(input){
     var  total, labels = [], confirmed = [], active=[], deaths=[],recovered=[];
-    total = input[0]
+    let ttl = input[0]
+    total={
+        confirmed: parseVal(ttl.confirmed),
+        active: parseVal(ttl.active),
+        recovered: parseVal(ttl.recovered),
+        deaths : parseVal(ttl.deaths),
+        deltaconfirmed: parseVal(ttl.deltaconfirmed)==0? '': `(+${parseVal(ttl.deltaconfirmed)})`,
+        deltarecovered: parseVal(ttl.deltarecovered)==0? '': `(+${parseVal(ttl.deltarecovered)})`,
+        deltadeaths: parseVal(ttl.deltadeaths)==0? '': `(+${parseVal(ttl.deltadeaths)})`
+    }
+
     input.forEach(elem=>{
         if(elem.state=='Total') return
         labels.push(elem.state)
@@ -79,10 +89,9 @@ function updateData(){
             console.log(data)
 
             // localStorage.setItem('world',JSON.stringify(data))
-
             chrome.storage.local.set({'world':data})
         })
 }
 
 updateData()
-setInterval(updateData, 1000*60*10)
+setInterval(updateData, 1000*60*10)// update data every 10 minutes
