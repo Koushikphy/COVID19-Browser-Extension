@@ -76,13 +76,15 @@ function updateData(){
             console.log(data)
             // localStorage.setItem('india',JSON.stringify(data))
             chrome.storage.local.set({'india':data})
+            xx = parseVal(data.total.confirmed)
+            xx = Math.round(xx/10000)/100
             chrome.browserAction.setBadgeText({
-                text: `${(parseVal(data.total.confirmed))}`
+                text: `${xx}M`
             })
             chrome.browserAction.setBadgeBackgroundColor({ color: '#FF0000' })
         })
 
-        axios.get('https://covid19-server.chrismichael.now.sh/api/v1/AllReports').then(response=>{
+        axios.get('https://www.ncovid19.it/api/v1/AllReports.php').then(response=>{
             if(response.status !=200) console.log('failed')
 
             data = filterWorldData(response.data.reports[0].table[0])
